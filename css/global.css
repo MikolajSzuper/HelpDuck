@@ -1,0 +1,114 @@
+@font-face {
+    font-family: 'Crang';
+    src: url('../fonts/crang.ttf') format('ttf');
+}
+
+footer{
+    background-color: #272727;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.5);
+    padding: 5px 0;
+    text-align: center;
+    color: #ffffff;
+    font-size: 1em;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    line-height: 0;
+}
+
+body {
+    margin: 0;
+    font-family: 'Crang',Arial, sans-serif;
+    background-color: #303030;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+header {
+    background-color: #272727;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: space-between;
+}
+.logo {
+    display: flex;
+    align-items: left;
+}
+.logo img {
+    padding: 10px;
+    height: 70px;
+    margin-right: 10px;
+}
+nav {
+    display: flex;
+    gap: 15px;
+}
+nav a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 1.2em;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+nav a:hover {
+    color: #ca935e;
+}
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 50px 0;
+    gap: 20px;
+    flex: 1;
+}
+.text-content{
+    display: block;
+    flex: 1;
+    width: 100%;
+    padding-right: 200px;
+}
+.text-content .content{
+    font-size: 1em;
+    line-height: 1.5;
+}
+.text-content h1{
+    font-size: 100px;
+}
+.duck-drawing {
+    display: block;
+    flex: 1;
+    margin-left: 200px;
+}
+.duck-drawing img{
+    width: 100%; 
+    max-width: 500px; 
+    height: auto;
+}
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-top: 20px;
+}
+.buttons button {
+    font-family: 'Crang',Arial, sans-serif;
+    padding: 15px 30px;
+    font-size: 1.5em;
+    color: #ffffff;
+    background-color: #272727;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.buttons button:hover {
+    background-color: #ca935e;
+    color: #222222;
+}
