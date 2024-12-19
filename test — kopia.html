@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duck Crossing</title>
+    <style>
+        body {
+            background-color: gray;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        .road {
+            width: 200px; /* Ustaw szerokość drogi */
+            height: 50%;
+            background-color: black;
+            position: relative; /* Dodaj pozycjonowanie względne */
+            margin: 0 5px; /* Dodaj margines między drogami */
+        }
+
+        .lane {
+            width: 5px; /* Ustaw szerokość pasa */
+            height: 100%;
+            background: repeating-linear-gradient(
+                to bottom,
+                white,
+                white 20px,
+                transparent 20px,
+                transparent 40px
+            );
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .duck {
+            position: absolute;
+            top: 50%; /* Wyśrodkuj kaczkę w pionie */
+            left: 50%; /* Wyśrodkuj kaczkę w poziomie */
+            transform: translate(-50%, -50%); /* Wyśrodkuj kaczkę */
+            width: 50px;
+            height: 50px;
+            background-color: yellow;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            transition: top 1s ease, left 1s ease;
+            z-index: 10; /* Ustaw wysoki z-index, aby kaczka była na wierzchu */
+        }
+
+        .car {
+            position: absolute;
+            top: -50px; /* Start poza ekranem */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 70px;
+            background-color: red;
+            border-radius: 5px;
+            transition: top 2s linear;
+        }
+
+        button {
+            background-color: yellow;
+            color: black;
+            border-radius: 50%;
+            width: 40px; /* Zwiększ szerokość przycisku */
+            height: 40px; /* Zwiększ wysokość przycisku */
+            font-size: 24px; /* Zwiększ rozmiar czcionki */
+            border: none; /* Usuń obramowanie */
+            cursor: pointer; /* Dodaj wskaźnik kursora */
+        }
+
+        .button-container {
+            position: absolute;
+            top: 50%; /* Wyśrodkuj przycisk w pionie */
+            left: 50%;
+            transform: translate(-50%, -50%); /* Wyśrodkuj przycisk */
+            z-index: 5;
+        }
+    </style>
+</head>
+<body>
+    <div class="info">
+        <h1>Poziom: <span class="level-info">1</span></h1>
+        <h2>Droga: <span class="road-info">1</span></h2>
+    </div>
+    <div class="container">
+        <div class="road" id="road1">
+            <div class="lane"></div>
+            <div class="duck" id="duck">🦆</div>
+        </div>
+        <div class="road" id="road2">
+            <div class="lane"></div>
+            <div class="button-container">
+                <button onclick="moveDuck()">+</button>
+            </div>
+        </div>
+        <div class="road" id="road3">
+            <div class="lane"></div>
+        </div>
+        <div class="road" id="road4">
+            <div class="lane"></div>
+        </div>
+        <div class="road" id="road5">
+            <div class="lane"></div>
+        </div>
+        <div class="road" id="road6">
+            <div class="lane"></div>
+        </div>
+        <div class="road" id="road7">
+            <div class="lane"></div>
+        </div>
+        <div class="road" id="road8">
+            <div class="lane"></div>
+        </div>
+    </div>
+
+    <script>
+        let level = 1;
+        let currentRoadId = 1;
+        const totalRoads = 8;
+
+        function updateInfo() {
+            document.querySelector('.level-info').textContent = level;
+            document.querySelector('.road-info').textContent = currentRoadId;
+        }
+
+        function resetGame(){
+            const buttonContainer = document.querySelector('.button-container');
+            const duck = document.getElementById('duck');
+            const firstRoad = document.getElementById('road1');
+            firstRoad.appendChild(duck);
+            duck.style.left = '50%';
+            duck.style.top = '50%';
+            duck.style.transform = 'translate(-50%, -50%)'
+            const secondRoad = document.getElementById('road2');
+            secondRoad.appendChild(buttonContainer);
+            buttonContainer.style.left = '50%';
+            buttonContainer.style.top = '50%';
+            buttonContainer.style.transform = 'translate(-50%, -50%)'
+            buttonContainer.style.display = 'block';
+            currentRoadId = 1; // Resetuj ID drogi
+            updateInfo();
+        }
+
+        function moveDuck() {
+            const duck = document.getElementById('duck');
+            const currentRoad = document.getElementById(`road${currentRoadId}`);
+            currentRoadId = (currentRoadId % totalRoads) + 1;
+            const nextRoad = document.getElementById(`road${currentRoadId}`);
+            const buttonContainer = document.querySelector('.button-container');
+
+            buttonContainer.style.display = 'none'; 
+
+            // Oblicz odległość między aktualną a nową pozycją
+            const currentRect = currentRoad.getBoundingClientRect();
+            const nextRect = nextRoad.getBoundingClientRect();
+            const distanceX = nextRect.left - currentRect.left;
+            const distanceY = nextRect.top - currentRect.top;
+
+            // Ustaw dynamiczną animację
+            duck.style.transition = `left 1s ease, top 1s ease`;
+            duck.style.left = `${duck.offsetLeft + distanceX}px`;
+            duck.style.top = `${duck.offsetTop + distanceY}px`;
+
+            // Przesuń przycisk razem z kaczką
+            buttonContainer.style.transition = `left 1s ease, top 1s ease`;
+            buttonContainer.style.left = `${buttonContainer.offsetLeft + distanceX}px`;
+            buttonContainer.style.top = `${buttonContainer.offsetTop + distanceY}px`;
+
+            // Po zakończeniu animacji przenieś kaczkę do następnej drogi
+            duck.addEventListener('transitionend', () => {
+                nextRoad.appendChild(duck);
+                duck.style.transition = '';
+                duck.style.left = '50%'; // Resetuj pozycję kaczki
+                duck.style.top = '50%'; // Resetuj pozycję kaczki
+                duck.style.transform = 'translate(-50%, -50%)'; // Resetuj transformację
+
+                // Przenieś przycisk do drogi przed kaczką
+                const buttonRoadId = (currentRoadId % totalRoads) + 1;
+                const buttonRoad = document.getElementById(`road${buttonRoadId}`);
+                buttonRoad.appendChild(buttonContainer);
+                buttonContainer.style.transition = '';
+                buttonContainer.style.left = '50%'; // Resetuj pozycję przycisku
+                buttonContainer.style.top = '50%'; // Resetuj pozycję przycisku
+                buttonContainer.style.transform = 'translate(-50%, -50%)'; // Resetuj transformację
+                buttonContainer.style.display = 'block';
+
+                // Jeśli kaczka jest na ostatniej drodze, zresetuj pozycję kaczki i przycisku
+                if (currentRoadId === totalRoads) {
+                    level = level + 1;
+                    resetGame();
+                    changeCarSpeed(level);
+                }
+
+                updateInfo();
+            }, { once: true });
+        }
+
+        function createCar(road) {
+            const car = document.createElement('div');
+            car.classList.add('car');
+            road.appendChild(car);
+
+            const carSpeed = 3 - (level*0.1); 
+            car.style.transition = `top ${carSpeed}s linear`;
+
+            // Ustaw animację przejazdu samochodu
+            setTimeout(() => {
+                car.style.top = '100%'; // Przesuń samochód w dół
+            }, 100);
+
+            // Usuń samochód po zakończeniu animacji
+            car.addEventListener('transitionend', () => {
+                car.remove();
+            });
+        }
+
+        function startCarGeneration() {
+            setInterval(() => {
+                for (let i = 2; i <= totalRoads; i++) {
+                    if (i !== currentRoadId) { // Generuj samochody tylko na drogach bez kaczki
+                        const road = document.getElementById(`road${i}`);
+                        const randomDelay =  Math.max(500, Math.random() * 3000 - (level * 100)); // Losowe opóźnienie do 3 sekund
+                        setTimeout(() => {
+                            createCar(road);
+                        }, randomDelay);
+                    }
+                }
+            }, Math.max(6000, 6000 - (level * 200))); // Sprawdzaj co 3 sekundy
+        }
+
+        function checkCollision() {
+            const duck = document.getElementById('duck');
+            const duckRect = duck.getBoundingClientRect();
+
+            const cars = document.querySelectorAll('.car');
+            cars.forEach(car => {
+                const carRect = car.getBoundingClientRect();
+
+                if (
+                    duckRect.left < carRect.left + carRect.width &&
+                    duckRect.left + duckRect.width > carRect.left &&
+                    duckRect.top < carRect.top + carRect.height &&
+                    duckRect.top + duckRect.height > carRect.top
+                ) {
+                    // Kolizja wykryta, resetuj pozycję kaczki
+                    level = 1;
+                    resetGame();
+                }
+            });
+        }
+
+        // Uruchom generowanie samochodów i sprawdzanie kolizji po załadowaniu strony
+        document.addEventListener('DOMContentLoaded', () => {
+            updateInfo();
+            startCarGeneration();
+            setInterval(checkCollision, 100); // Sprawdzaj kolizje co 100 ms
+        });
+    </script>
+</body>
+</html>

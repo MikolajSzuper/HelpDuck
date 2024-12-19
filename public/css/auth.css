@@ -1,0 +1,72 @@
+.modal-window {
+    display: none; /* Ukryj modal domyślnie */
+    position: fixed; /* Ustaw modal w pozycji stałej */
+    z-index: 1000; /* Ustaw wysoki z-index, aby modal był nad całą zawartością */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Włącz przewijanie, jeśli zawartość modal jest zbyt duża */
+    background-color: rgb(0,0,0); /* Czarny kolor tła */
+    background-color: rgba(0,0,0,0.4); /* Przezroczyste czarne tło */
+}
+
+.modal-window-content {
+    margin: 15% auto; /* 15% od góry i wyśrodkuj w poziomie */
+    background: #303030;
+    color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 90%; /* Szerokość modal */
+    max-width: 400px; /* Maksymalna szerokość modal */
+}
+
+.modal-window-content h2 {
+    color: #ca935e;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.modal-table {
+    margin: 0 auto;
+}
+
+.modal-table input{
+    background-color:rgb(27, 27, 27);
+    padding: 6px;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: #fff;
+    font-size: 1em;
+}
+
+.modal-table .login-small-text{
+    font-size: 0.6em;
+}
+.modal-table a{
+    color: #ca935e;
+    font-size: 0.6em;
+}
+.modal-window-content .buttons{
+    text-align: center;
+}
+
+.modal-window-content .buttons button{
+    padding: 10px 30px;
+    font-size: 1em;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    text-decoration: none;
+    cursor: pointer;
+}
