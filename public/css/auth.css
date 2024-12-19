@@ -70,3 +70,27 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+.error-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #f44336;
+    color: white;
+    padding: 16px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 1001;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.error-container.show {
+    display: block;
+    opacity: 1;
+}
+
+.error-container.hide {
+    opacity: 0;
+}

@@ -1,12 +1,15 @@
 <?php
 class Help extends Controller {
-    public function index()
+    public function index($name='')
     {
-        if($this->chechAuth()){
-            $this->view(view: 'help/index');
+        $data = false;
+        if(!$this->chechAuth()){
+            header('Location: /ProjektDuckHelp/public/home/index/');
         }else{
-            header('Location: /ProjektDuckHelp/public/home/index');
+            $data=true;
         }
+
+        $this->view('help/index',['isLoggedIn'=>$data, 'error'=> $name]);
     }
 }
 ?>

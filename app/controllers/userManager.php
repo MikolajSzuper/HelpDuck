@@ -10,9 +10,6 @@ class UserManager{
         ];
 
         $data = filter_input_array(INPUT_POST, $args);
-        //sprawdź czy użytkownik o loginie istnieje w tabeli users
-        //i czy podane hasło jest poprawne
-        //print_r($data);
         $login = $data['username'];
         $passwd = $data['password'];
         $userId = $db->selectUser($login, $passwd, "users");
