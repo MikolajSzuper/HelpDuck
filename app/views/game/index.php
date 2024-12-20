@@ -19,9 +19,9 @@
                 <?php if ($data['isLoggedIn'] == 'loggedin'): ?>
                 <a href="/ProjektDuckHelp/public/home/index">Strona Główna</a>
                 <a href="/ProjektDuckHelp/public/game/index"><span style="color: #ca935e;">Graj</span></a>
-                <a href="/ProjektDuckHelp/public/help/index">Pomoc</a>
                 <a href="/ProjektDuckHelp/public/scoreboards/index">Najlepsi pomocnicy</a>
                 <a href="/ProjektDuckHelp/public/profile/index">Profil</a>
+                <a href="/ProjektDuckHelp/public/help/index">Pomoc</a>
                 <a href="/ProjektDuckHelp/public/home/index/logout">Wyloguj</a>
                 <?php endif; ?>
             </nav>

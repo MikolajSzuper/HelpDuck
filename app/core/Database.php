@@ -94,6 +94,17 @@ public function selectOnlyresult($sql) {
     }
     return $tresc;
 }
+
+public function selectOnlyresultTable($sql) {
+    $results = [];
+    if ($result = $this->mysqli->query($sql)) {
+        while ($row = $result->fetch_assoc()) {
+            $results[] = $row;
+        }
+        $result->close(); // zwolnij pamięć
+    }
+    return $results;
+}
    
    public function delete($sql){
      if( $this->mysqli->query($sql)) return true; else return false;

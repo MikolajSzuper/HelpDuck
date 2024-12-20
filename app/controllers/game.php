@@ -15,7 +15,7 @@ class Game extends Controller {
         $this->view('game/index',['isLoggedIn'=>$data, 'error'=> $name]);
         }
     }
-    public function saveDataFromJS(){
+    private function saveDataFromJS(){
         error_log("Metoda saveDataFromJS zostala wywolana");
         require_once __DIR__ .'../../models/GameModel.php';
 
@@ -40,11 +40,7 @@ class Game extends Controller {
             $result = $db->selectOnlyresult($sql);
 
             $gamemod=new GameModel($data['id_level'], $data['id_road'], $result);
-            
-            $sql = "INSERT INTO played_games VALUES (NULL, '".$gamemod->getLevel()."', '".$gamemod->getRoad()."', '".$gamemod->getplayerid()."','".$gamemod->getDate()."')";
-            $db->insert($sql);
-            unset($db);
-            unset($gamemod);
+            $gamemod->sendToDb();
 
             echo json_encode(['status' => 'success', 'message' => 'Dane zapisane pomyślnie.']);   
         } 

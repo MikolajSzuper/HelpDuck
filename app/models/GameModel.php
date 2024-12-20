@@ -24,5 +24,10 @@ class GameModel{
     public function getDate(){
         return $this->date;
     }
+    public function sendToDb(){
+        $db = new Database();
+        $sql = "INSERT INTO played_games VALUES (NULL, '".$this->getLevel()."', '".$this->getRoad()."', '".$this->getplayerid()."','".$this->getDate()."')";
+        $db->insert($sql);
+    }
 }
 ?>

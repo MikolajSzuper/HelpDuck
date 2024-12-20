@@ -18,15 +18,51 @@
                 <?php if ($data['isLoggedIn'] == 'loggedin'): ?>
                 <a href="/ProjektDuckHelp/public/home/index">Strona Główna</a>
                 <a href="/ProjektDuckHelp/public/game/index">Graj</a>
-                <a href="/ProjektDuckHelp/public/scoreboards/index">Najlepsi pomocnicy</a>
+                <a href="/ProjektDuckHelp/public/scoreboards/index"><span style="color: #ca935e;">Najlepsi pomocnicy</span></a>
                 <a href="/ProjektDuckHelp/public/profile/index">Profil</a>
-                <a href="/ProjektDuckHelp/public/help/index"><span style="color: #ca935e;">Pomoc</span></a>
+                <a href="/ProjektDuckHelp/public/help/index">Pomoc</a>
                 <a href="/ProjektDuckHelp/public/home/index/logout">Wyloguj</a>
                 <?php endif; ?>
             </nav>
         </header>
         <div class="main-content">
-            
+            <table>
+        <thead>
+            <tr>
+                <th>Lp.</th>
+                <th>Imię</th>
+                <th>Poziom</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($data['best5'] as $place => $info): ?>
+            <tr>
+                <td><?php echo $place+1; ?></td>
+                <td><?php echo $info['name']; ?></td>
+                <td><?php echo $info['level']; ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Lp.</th>
+                <th>Imię</th>
+                <th>Data</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($data['newest5'] as $place => $info): ?>
+            <tr>
+                <td><?php echo $place+1; ?></td>
+                <td><?php echo $info['name']; ?></td>
+                <td><?php echo $info['registration_date']; ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
         </div>
         <footer>
             <p>&copy;MS Help Duck</p>
