@@ -127,13 +127,13 @@ function startCarGeneration() {
         for (let i = 2; i <= totalRoads; i++) {
             if (i !== currentRoadId) {
                 const road = document.getElementById(`road${i}`);
-                const randomDelay = Math.max(300, Math.random() * 4000);
+                const randomDelay = Math.max(500, Math.random() * 4000);
                 setTimeout(() => {
                     createCar(road);
                 }, randomDelay);
             }
         }
-    }, 2000);
+    }, 5000 - (level * 500));
 }
 
 function checkCollision() {

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Help Duck</title>
     <link rel="stylesheet" href="/ProjektDuckHelp/public/css/global.css" type="text/css" />
-    <link rel="stylesheet" href="/ProjektDuckHelp/public/css/auth.css" type="text/css" />
+    <link rel="stylesheet" href="/ProjektDuckHelp/public/css/scoreboard.css" type="text/css" />
     <link rel="icon" href="/ProjektDuckHelp/public/images/kaczka.png" type="image/x-icon" />
 </head>
 <body>
@@ -25,7 +25,10 @@
                 <?php endif; ?>
             </nav>
         </header>
-        <div class="main-content">
+        <div class="main-content-tables">
+        <div class="main-content-scores">
+            <div class="best5-container">
+                <h1>Najlepsi pomocnicy</h1>
             <table>
         <thead>
             <tr>
@@ -44,7 +47,9 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-
+            </div>
+            <div class="newest5-container">
+                <h1>Ostatnio zarejestrowani</h1>
     <table>
         <thead>
             <tr>
@@ -63,6 +68,8 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+            </div>
+        </div>
         </div>
         <footer>
             <p>&copy;MS Help Duck</p>

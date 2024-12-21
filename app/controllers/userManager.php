@@ -13,6 +13,10 @@ class UserManager{
         $login = $data['username'];
         $passwd = $data['password'];
         $userId = $db->selectUser($login, $passwd, "users");
+        if($userId == -2){
+            header("Location: /ProjektDuckHelp/public/home/index/wrongPassword/");
+            return $userId;
+        }
         if ($userId >= 0) { 
             session_start();
           $sql = "DELETE FROM logged_in_users WHERE userid = '".$userId."'";
@@ -27,6 +31,98 @@ class UserManager{
         }
         return $userId;
         }
+
+    public function changePassword() {
+             $db = new Database();
+             $args = [
+                'oldPass' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
+                'newPass' => FILTER_SANITIZE_FULL_SPECIAL_CHARS
+                ];
+        
+                $data = filter_input_array(INPUT_POST, $args);
+                $errors = "";
+                foreach ($data as $key => $val) {
+                    if ($val === false or $val === NULL or $val=="") {
+                        $errors .= $key . " ";
+                }
+                }
+            if ($errors === "") {
+                $oldPassword = $data['oldPass'];
+                $newPassword = $data['newPass'];
+
+            $sessionId = session_id();
+            $sql = "SELECT userId FROM logged_in_users WHERE sessionId = '$sessionId'";
+            $result = $db->selectOnlyresultTable($sql);
+
+                $userId = $result[0]['userId'];
+                // Pobierz hasło użytkownika z bazy danych
+                $sql = "SELECT password FROM users WHERE id = '$userId'";
+                $userResult = $db->selectOnlyresultTable($sql);
+    
+                    $hashedPassword = $userResult[0]['password'];
+    
+                    // Sprawdź, czy stare hasło jest poprawne
+                    if (password_verify($oldPassword, $hashedPassword)) {
+                        // Hashuj nowe hasło
+                        $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+    
+                        // Zaktualizuj hasło w bazie danych
+                        $sql = "UPDATE users SET password = '$newHashedPassword' WHERE id = '$userId'";
+                        if ($db->update($sql)) {
+                            header("Location: /ProjektDuckHelp/public/profile/index/passwordChanged/");
+                        } else {
+                            header("Location: /ProjektDuckHelp/public/profile/index/passwordNotChanged/");
+                        }
+                    } else {
+                        // Stare hasło jest niepoprawne
+                        header("Location: /ProjektDuckHelp/public/profile/index/incorrectOldPassword/");
+                    }
+                
+            } else {
+                header("Location: /ProjektDuckHelp/public/profile/index/incorrectData/");
+            }
+            
+    }
+
+    public function changeEmail() {
+        $db = new Database();
+        $args = [
+           'newEmail' => FILTER_SANITIZE_EMAIL
+           ];
+   
+           $data = filter_input_array(INPUT_POST, $args);
+           $errors = "";
+           foreach ($data as $key => $val) {
+               if ($val === false or $val === NULL or $val=="") {
+                   $errors .= $key . " ";
+           }
+           }
+       if ($errors === "") {
+           $newEmail = $data['newEmail'];
+
+           if (!filter_var($newEmail, FILTER_VALIDATE_EMAIL)) {
+            header("Location: /ProjektDuckHelp/public/profile/index/incorrectData/");
+            exit();
+            }
+
+       $sessionId = session_id();
+       $sql = "SELECT userId FROM logged_in_users WHERE sessionId = '$sessionId'";
+       $result = $db->selectOnlyresultTable($sql);
+
+       $userId = $result[0]['userId'];
+
+        $sql = "UPDATE users SET email = '$newEmail' WHERE id = '$userId'";
+                   if ($db->update($sql)) {
+                       header("Location: /ProjektDuckHelp/public/profile/index/emailChanged/");
+                   } else {
+                       header("Location: /ProjektDuckHelp/public/profile/index/emailNotChanged/");
+                   }
+           
+       } else {
+           header("Location: /ProjektDuckHelp/public/profile/index/incorrectData/");
+       }
+       
+}
 
     public function logout() {
             $db = new Database();

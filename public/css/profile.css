@@ -1,0 +1,118 @@
+.main-content-profile {
+    flex: 1;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: block;
+    align-items: center;
+    padding-left: 50px;
+    margin-top: 50px;
+    gap: 50px;
+}
+
+.table-container {
+    background-color: #272727;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+}
+
+.table-container h1 {
+    color: #ca935e;
+}
+
+.profile-table th,
+.profile-table td {
+    padding: 10px;
+}
+
+.profile-table button {
+    padding: 10px 15px;
+    font-size: 0.8em;
+    color: #ffffff;
+    background-color: #202020;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.profile-table button:hover {
+    background-color: #ca935e;
+    color: #222222;
+}
+
+.modal-window {
+    display: none;
+    background-color: #272727;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    overflow: auto;
+}
+
+.modal-window-content h2 {
+    color: #ca935e;
+    font-size: 1.5em;
+}
+
+.modal-table {
+    margin-bottom: 10px;
+}
+
+.modal-table input {
+    background-color: rgb(27, 27, 27);
+    padding: 6px;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: #fff;
+    font-size: 1em;
+}
+
+.buttons-profile button {
+    font-family: 'Crang', Arial, sans-serif;
+    padding: 10px 15px;
+    font-size: 0.8em;
+    color: #ffffff;
+    background-color: #202020;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.buttons-profile button:hover {
+    background-color: #ca935e;
+    color: #222222;
+}
+
+.error-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #f44336;
+    color: white;
+    padding: 16px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 1001;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.error-container.show {
+    display: block;
+    opacity: 1;
+}
+
+.error-container.hide {
+    opacity: 0;
+}

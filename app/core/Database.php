@@ -62,28 +62,22 @@ class Database {
                 // sprawdź czy pobrane hasło pasuje do tego z tabeli bazy danych:
                 if (password_verify($password, $hash)) {
                     $id = $row->id; // jeśli hasła się zgadzają - pobierz id użytkownika
+                }else{
+                    return -2;
                 }
             }
         }
         return $id; // id zalogowanego użytkownika(>0) lub -1
     }
+
+    public function update($sql) {
+        if ($this->mysqli->query($sql)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
    
-  /* public function selectOnlyresult($sql, $pola) {
-     $tresc = "";
-     if ($result = $this->mysqli->query($sql)) {
-        $ilepol = count($pola); //ile pól
-        $ile = $result->num_rows; //ile wierszy
-        // pętla po wyniku zapytania $results
-        while ($row = $result->fetch_object()) {
-        for ($i = 0; $i < $ilepol; $i++) {
-        $p = $pola[$i];
-       $tresc.=$row->$p;
-        }
-        }
-        $result->close(); 
-        }
-        return $tresc;
-    }*/
 public function selectOnlyresult($sql) {
     $tresc = "";
     if ($result = $this->mysqli->query($sql)) {

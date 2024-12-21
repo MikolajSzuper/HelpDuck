@@ -17,7 +17,7 @@ function resetForms() {
     document.getElementById('registerForm').reset();
 }
 
-window.onclick = function(event) {
+window.onclick = function (event) {
     const loginModal = document.getElementById('loginModal');
     const registerModal = document.getElementById('registerModal');
     if (event.target == loginModal) {
@@ -30,7 +30,7 @@ window.onclick = function(event) {
     }
 }
 
-function changeErrorColor(){
+function changeErrorColor() {
     document.getElementById('errorContainer').style.backgroundColor = 'green';
 }
 
@@ -47,9 +47,9 @@ function showError(message) {
                 errorContainer.classList.remove('hide');
                 errorContainer.style.display = 'none';
                 document.getElementById('errorContainer').style.backgroundColor = '#f44336';
-            }, 500); 
-        }, 3000); 
-    }, 10); 
+            }, 500);
+        }, 3000);
+    }, 10);
 }
 
 // Execute error handling based on PHP data
