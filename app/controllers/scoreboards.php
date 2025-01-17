@@ -17,13 +17,13 @@ class Scoreboards extends Controller {
     }
 
     private function bestLevel($db){
-        $sql = "SELECT userid, level FROM played_games ORDER BY level DESC LIMIT 5";
+        $sql = "SELECT userid, MAX(level) as best_level FROM played_games GROUP BY userid ORDER BY best_level DESC LIMIT 5";
         $result1 = $db->selectOnlyresultTable($sql);
 
         $data = [];
         foreach ($result1 as $row) {
             $userId = $row['userid'];
-            $level = $row['level'];
+            $level = $row['best_level'];
 
             $sql = "SELECT login FROM users WHERE id = '$userId'";
             $result2 = $db->selectOnlyresultTable($sql);

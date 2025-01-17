@@ -89,7 +89,7 @@ function createCar(road) {
     const randomHue = Math.floor(Math.random() * 360);
     car.style.filter = `hue-rotate(${randomHue}deg)`;
 
-    const carSpeed = 3 - (level * 0.5);
+    const carSpeed = 3 - Math.min(2, (level * 0.2));
     car.style.transition = `top ${carSpeed}s linear, opacity 2s ease`;
 
     setTimeout(() => {
@@ -123,17 +123,28 @@ function sendDataToServer(data) {
 }
 
 function startCarGeneration() {
+    let previousDelay = 0;
     setInterval(() => {
         for (let i = 2; i <= totalRoads; i++) {
             if (i !== currentRoadId) {
                 const road = document.getElementById(`road${i}`);
-                const randomDelay = Math.max(500, Math.random() * 4000);
+                let randomDelay;
+                do {
+                    randomDelay = Math.max(500 + Math.random() * 100, Math.random() * (4000 - (level * 150)));
+                } while (randomDelay === previousDelay);
+
+                previousDelay = randomDelay;
                 setTimeout(() => {
                     createCar(road);
                 }, randomDelay);
             }
         }
-    }, 5000 - (level * 500));
+    }, 5000 - (level * 100));
+}
+
+function changeLevel(new_level) {
+    level = new_level;
+    updateInfo();
 }
 
 function checkCollision() {

@@ -52,7 +52,17 @@ function showError(message) {
     }, 10);
 }
 
-// Execute error handling based on PHP data
+function validateForm() {
+    const password = document.getElementById('reg-password').value;
+    const repeatPassword = document.getElementById('reg-repeat-password').value;
+
+    if (password !== repeatPassword) {
+        showError("Hasła nie są takie same");
+        return false;
+    }
+    return true;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const error = document.body.dataset.error;
     if (error) {

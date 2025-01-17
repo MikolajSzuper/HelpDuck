@@ -83,7 +83,7 @@
         <div class="modal-window-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h2>Rejestracja</h2>
-            <form id="registerForm" action="/ProjektDuckHelp/public/home/index/register" method="post">
+            <form id="registerForm" action="/ProjektDuckHelp/public/home/index/register" method="post" onsubmit="return validateForm()">
                 <table class="modal-table">
                     <tr>
                         <td><label for="reg-username">Login:</label></td>
