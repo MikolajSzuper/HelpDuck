@@ -55,18 +55,18 @@ class UserManager{
             $result = $db->selectOnlyresultTable($sql);
 
                 $userId = $result[0]['userId'];
-                // Pobierz hasło użytkownika z bazy danych
+
                 $sql = "SELECT password FROM users WHERE id = '$userId'";
                 $userResult = $db->selectOnlyresultTable($sql);
     
                     $hashedPassword = $userResult[0]['password'];
     
-                    // Sprawdź, czy stare hasło jest poprawne
+
                     if (password_verify($oldPassword, $hashedPassword)) {
-                        // Hashuj nowe hasło
+
                         $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
     
-                        // Zaktualizuj hasło w bazie danych
+
                         $sql = "UPDATE users SET password = '$newHashedPassword' WHERE id = '$userId'";
                         if ($db->update($sql)) {
                             header("Location: /ProjektDuckHelp/public/profile/index/passwordChanged/");
@@ -74,7 +74,7 @@ class UserManager{
                             header("Location: /ProjektDuckHelp/public/profile/index/passwordNotChanged/");
                         }
                     } else {
-                        // Stare hasło jest niepoprawne
+
                         header("Location: /ProjektDuckHelp/public/profile/index/incorrectOldPassword/");
                     }
                 
@@ -173,7 +173,6 @@ class UserManager{
                 $sql = "SELECT COUNT(*) as count FROM users WHERE login = '$login'";
                 $result = $db->selectOnlyResult($sql);
                 if ($result > 0) {
-                    // Użytkownik z takim loginem już istnieje
                     header("Location: /ProjektDuckHelp/public/home/index/userExists/");
                 } else {
             $sql = "INSERT INTO users VALUES (NULL, '".$this->user->getLogin()."', '".$this->user->getEmail()."', '".$this->user->getPassword()."','".$this->user->getRole()."', '".$this->user->getDate()."')";

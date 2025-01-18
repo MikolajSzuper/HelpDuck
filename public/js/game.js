@@ -22,7 +22,7 @@ function resetGame() {
     buttonContainer.style.top = '50%';
     buttonContainer.style.transform = 'translate(-50%, -50%)';
     buttonContainer.style.display = 'block';
-    currentRoadId = 1; // Resetuj ID drogi
+    currentRoadId = 1;
     updateInfo();
 }
 

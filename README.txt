@@ -26,9 +26,10 @@ Wersje programów wykorzystane do tworzenia aplikacji (aplikacja nie została pr
 2. Włączyć XAMPP MySQL Database oraz Apache Web Server
 3. Stworzyć bazę danych 'helpduck'
 3. Zaimportowanie pliku helpduck.sql w phpmyadmin
-4. Urychomienie poprzez wpisanie w przeglądarce localhost/
+4. Urychomienie poprzez wpisanie w przeglądarce http://localhost/ProjektDuckHelp/public/home/index/
 
 ## Uwagi
+W razie posiadania innej nazwy i hasła do phpmyadmin niż standardowe należy dokonać zmiany w folderze config w pliku database.php
 W razie kłopotów z zaimportowanie stworzyć bazę danych 'helpduck' i dodanie tabeli z pliku bazadanych.txt
 
 ## Konta testowe
